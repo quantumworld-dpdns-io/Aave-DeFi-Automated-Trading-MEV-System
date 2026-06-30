@@ -1,0 +1,53 @@
+Cargo.toml
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# WebSocket client and event loop
+tokio = { version = "1.0", features = ["full"] }
+# Ethereum client with alloy
+tower = { version = "0.4", features = ["full"] }
+tower-http = { version = "0.4", features = ["cors", "trace"] }
+# gRPC
+tonic = "0.10"
+prost = "0.12"
+# Ethereum primitives
+alloy = { version = "0.8", features = ["full", "rustls", "eip1559"] }
+# Configuration
+serde = { version = "1.0", features = ["derive"] }
+# Metrics & Monitoring
+metrics = "0.22"
+# Error handling
+thiserror = "1.0"
+# Logging
+tracing = "0.1"
+tracing-subscriber = "0.4"
+# Crypto
+ethers = "2.0"
+# Async utilities
+glup = "0.3"
+# Serialization
+bincode = "2.0"
+# Serialization for events
+serde_json = "1.0"
+# Time handling
+timeago = "1.0"
+
+[lib]
+name = "executor"
+path = "src/lib.rs"
+
+[bin]
+name = "executor"
+path = "src/main.rs"
+
+[dependencies.alloy]
+version = "0.8.18"
+features = ["full", "json"]
+
+[features]
+default = []
+# Enable additional features for development
+dev = ["alloy/netty", "alloy/rpc/types/debug"]
+# Enable metrics collection
+metrics = ["metrics/macros"]

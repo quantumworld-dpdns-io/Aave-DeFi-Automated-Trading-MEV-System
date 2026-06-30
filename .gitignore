@@ -1,2 +1,143 @@
-auto_commit.sh
+# ==========================================
+# Aave DeFi MEV System - .gitignore
+# ==========================================
+
+# --- Secrets & Environment ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+keystore/
+secrets/
+
+# --- Build Artifacts ---
+# Rust
+target/
+Cargo.lock
+**/target/
+
+# Go
+bin/
+vendor/
+*.exe
+*.test
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+
+# Node/JS (if any)
+node_modules/
+*.log
+npm-debug.log*
+
+# Foundry/Solidity
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+contracts/*.sol.db
+
+# Docker
+.docker/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 .DS_Store
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+*.out
+
+# Test Results
+coverage/
+htmlcov/
+.coverage
+.tox/
+*.profraw
+*.profdata
+
+# Robot Framework
+tests/robot/results/
+tests/robot/output.xml
+tests/robot/log.html
+tests/robot/report.html
+tests/robot/debug.log
+
+# Monitoring
+grafana/data/
+prometheus/data/
+
+# Temporary
+tmp/
+temp/
+*.tmp
+
+# === Language Specific ===
+
+# Rust
+**/target/**
+Cargo.lock
+
+# Go
+**/bin/**
+**/vendor/**
+go.work
+
+# Python
+**/__pycache__/**
+**/*.pyc
+**/.pytest_cache/**
+**/.mypy_cache/**
+**/.ruff_cache/**
+**/.venv/**
+**/venv/**
+**/env/**
+**/*.egg-info/**
+**/dist/**
+**/build/**
+
+# Foundry
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+contracts/*.sol.db
+
+# Solc
+*.sol.db
+
+# === Allowlist ===
+!.gitignore
+!.github/
+!docker-compose*.yml
+!Dockerfile*
+!Makefile
+!README.md
+!docs/
+!contracts/
+!services/
+!tests/
+!grafana/
+!prometheus.yml
+!.choreo/

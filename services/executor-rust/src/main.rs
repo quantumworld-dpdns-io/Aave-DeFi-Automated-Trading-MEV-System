@@ -1,4 +1,4 @@
-//!/usr/bin/env alloy
+#!/usr/bin/env alloy
 //! Aave MEV System - Rust Executor
 //! 
 //! Core execution engine for mempool monitoring and transaction simulation
@@ -9,10 +9,66 @@
 //! - Simulated execution validation using MockExecutor
 //! - Real-world transaction execution with gas optimization
 //! - Multi-chain support with automatic failover
-
-use std::sync::Arc;
-use std::time::Duration;
-use tokio::net::TcpStream;
+//! 
+//! The service runs continuously, monitoring for profitable opportunities
+//! and executing them with proper risk management controls.
+//! 
+//! ## Architecture Overview
+//! 
+//! The Executor service is organized into several modular components:
+//! 
+//! 1. **Chain Management**: Multi-chain connectivity and failover
+//! 2. **Mempool Monitoring**: Transaction filtering and opportunity detection
+//! 3. **Simulation Engine**: Transaction validation and profit calculation
+//! 4. **API Layer**: gRPC and HTTP interfaces for service orchestration
+//! 5. **Metrics & Monitoring**: Performance tracking and observability
+//! 
+//! ## Key Features
+//! - Multi-chain support (Base, Polygon) with automatic failover
+//! - Real-time mempool monitoring and transaction parsing
+//! - Profit calculation and simulation for arbitrage, liquidations, and rate arbitrage
+//! - Risk management with threshold controls and circuit breakers
+//! - WebSocket-based real-time blockchain monitoring
+//! - gRPC interface for service coordination
+//! - HTTP API for health checks and monitoring
+//! - Comprehensive error handling and recovery
+//! - Structured logging and metrics collection
+//! 
+//! ## Usage
+//! 
+//! ### Configuration
+//! The service requires these environment variables:
+//! - `RPC_WSS_URL_BASE`: WebSocket URL for Base network
+//! - `RPC_WSS_URL_POLYGON`: WebSocket URL for Polygon network
+//! - `PRIVATE_KEY`: Ethereum private key for transaction signing
+//! 
+//! ### Running the Service
+//! ```bash
+//! cargo run --release
+//! ```
+//! 
+//! ### API Endpoints
+//! - `GET /health`: Service health check
+//! - `GET /api/chains`: List available chains
+//! - `GET /api/mempool/status`: Mempool monitoring status
+//! - `GET /api/simulator/status`: Simulator status
+//! - `GET /metrics`: Prometheus metrics
+//! - `POST /api/simulate`: Submit transaction for simulation
+//! 
+//! ### Configuration Options
+//! - `POLL_INTERVAL_MS`: Mempool polling interval (default: 1000)
+//! - `MIN_GAS_PRICE_GWEI`: Minimum gas price (default: 1)
+//! - `MIN_PROFIT_USD`: Minimum profit threshold (default: 10.0)
+//! 
+//! ## Notes
+//! 
+//! This is a simplified implementation for demonstration purposes.
+//! A production system would include:
+//! - More sophisticated opportunity detection algorithms
+//! - Enhanced gas optimization and batching
+//! - Integration with real-time analytics platforms
+//! - Advanced risk management and position sizing\nuse std::sync::Arc;
+use std::time::{Duration, Instant};
 use tokio::sync::{RwLock, broadcast};
 use tracing::{error, info, warn, debug};
 

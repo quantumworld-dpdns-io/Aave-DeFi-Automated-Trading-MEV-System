@@ -1,6 +1,7 @@
-// Configuration management
+// Configuration and chain management
 pub mod chain {
     pub mod manager;
+    pub mod service;
 }
 
 pub mod config {
@@ -62,5 +63,15 @@ pub mod api {
 }
 
 pub mod metrics {
+    #[derive(Debug)]
     pub struct Metrics;
+
+    impl Metrics {
+        pub fn new() -> Self {
+            Self {}
+        }
+        pub fn record_mempool_transaction(&self, _latency: Duration) {}
+        pub fn record_simulation(&self, _profit: f64, _gas_used: u64) {}
+        pub fn record_api_request(&self, _path: &str, _status: u16) {}
+    }
 }
